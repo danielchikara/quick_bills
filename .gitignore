@@ -1,3 +1,4 @@
 quickbills/__pycache__/*
 api/migrations/*
 quickbills/*
+api/__pycache__/*

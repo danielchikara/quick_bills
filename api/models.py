@@ -23,7 +23,7 @@ class Bill(models.Model):
         return self.client_bills.first_name
 
 
-class Product ():
+class Product (models.Model):
     name =models.CharField( max_length=50)
     description = models.CharField(max_length=50)
     
