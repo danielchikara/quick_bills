@@ -1,16 +1,21 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
-class Client(models.Model):
+"""modelo cliente que reutiliza el modelo de django de usuario y se modifica para que pueda iniciar sesion con correo 
+"""
+class Client(AbstractUser):
+    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = 'email'
     document = models.CharField(max_length=20)
     first_name = models.CharField(max_length = 50)
     last_name = models.CharField(max_length = 50)
-    email = models.EmailField(max_length=254)
+    email = models.EmailField(max_length=254, unique=True)
     password = models.CharField(max_length= 500)
     
     def __str__(self) -> str:
-        return self.document
+        return self.email
 
 
 class Bill(models.Model):
@@ -29,6 +34,7 @@ class Product (models.Model):
     
     def __str__(self) -> str:
         return self.name    
+
 
 class Bills_Products(models.Model):
     client_fk = models.ForeignKey(Client, related_name="client_bills", on_delete=models.CASCADE)
