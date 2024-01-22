@@ -48,7 +48,7 @@ class BillGetAndCreateView(APIView):
 
 
 class ProductGetAndCreateView(APIView):
-    queryset = Product.objects.filter(is_active = True)
+    queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
@@ -61,6 +61,26 @@ class ProductGetAndCreateView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
     
     def get(self, request, *args, **kwargs):
-        queryset = self.queryset()
+        queryset = self.queryset.filter(is_active =True)
         serializer = self.serializer_class(queryset,many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+class BillProductView(APIView):
+    queryset = Bills_Products.objects.all()
+    serializer_class = BillProductSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data) 
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+    
+    def get(self, request, *args, **kwargs):
+        queryset = self.queryset.filter(is_active =True)
+        serializer = self.serializer_class(queryset,many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    

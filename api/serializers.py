@@ -41,4 +41,9 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product 
         exclude = ['is_active',]
-        
+
+
+class BillProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bills_Products
+        exclude = ['is_active',]
