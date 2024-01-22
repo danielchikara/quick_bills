@@ -37,7 +37,7 @@ class Product (models.Model):
 
 
 class Bills_Products(models.Model):
-    client_fk = models.ForeignKey(Client, related_name="client_bills", on_delete=models.CASCADE)
+    bills_fk = models.ForeignKey(Bill, related_name="product_bills", on_delete=models.CASCADE)
     product_fk = models.ForeignKey(Product, related_name="product_bills", on_delete=models.CASCADE) 
     
     def __str__(self) -> str:
