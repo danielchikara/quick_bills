@@ -1,6 +1,6 @@
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, TokenRefreshSerializer
 from rest_framework import serializers
-from .models import Client
+from .models import *
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
@@ -21,6 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields  =["username","email","password"]
         extra_kwargs = {'password': {'write_only': True}}
         
+        
     def create (self,validated_data):
         user = Client.objects.create_user(
             username=validated_data["username"],
@@ -28,3 +29,16 @@ class UserSerializer(serializers.ModelSerializer):
             password=validated_data["password"]
             )
         return user
+    
+
+class BillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bill 
+        exclude = ['client_bills','is_active']
+        
+
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product 
+        exclude = ['is_active',]
+        

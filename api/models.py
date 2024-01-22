@@ -23,7 +23,7 @@ class Bill(models.Model):
     company_name = models.CharField( max_length=50)
     nit = models.CharField( max_length=50)
     code = models.CharField(max_length=1)
-    
+    is_active = models.BooleanField(default =True)
     def __str__(self) -> str:
         return self.client_bills.first_name
 
@@ -31,14 +31,16 @@ class Bill(models.Model):
 class Product (models.Model):
     name =models.CharField( max_length=50)
     description = models.CharField(max_length=50)
+    is_active = models.BooleanField(default =True)
     
     def __str__(self) -> str:
         return self.name    
 
 
 class Bills_Products(models.Model):
-    bills_fk = models.ForeignKey(Bill, related_name="product_bills", on_delete=models.CASCADE)
+    bills_fk = models.ForeignKey(Bill, related_name="product_bills", on_delete=models.CASCADE, null=True, blank=True)
     product_fk = models.ForeignKey(Product, related_name="product_bills", on_delete=models.CASCADE) 
+    is_active = models.BooleanField(default =True)
     
     def __str__(self) -> str:
         return f"client_document, {self.client_fk.document}, product_name, {self.product.name}"
