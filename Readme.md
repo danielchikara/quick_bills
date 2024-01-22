@@ -6,6 +6,7 @@ El JWT tiene duracion de un dia y tiene enpoint para refresh
 ## Documentación de postman
 https://documenter.getpostman.com/view/10921323/2s9YymGjif
 
+## Instalación de requerimientos, ejecución del proyecto
 ```
 pip  install -r  requirements.txt  
 ```
